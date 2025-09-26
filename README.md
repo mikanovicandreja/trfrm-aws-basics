@@ -1,5 +1,4 @@
-============================================================
- AWS Infrastructure Assignment
+AWS Infrastructure Assignment
 ============================================================
 
 Objective:

@@ -134,3 +134,38 @@ A public EC2 instance running Apache (with HTTP/HTTPS enabled) and PostgreSQL cl
 A private RDS PostgreSQL database, isolated from the internet but reachable from EC2.
 
 Networking and security rules that enforce a clean two-tier architecture.
+
+                        +-------------------+
+                        |   Internet        |
+                        +-------------------+
+                                 |
+                           [ Internet Gateway ]
+                                 |
+               +-----------------+-----------------+
+               |                                   |
+      +-------------------+               +-------------------+
+      | Public Subnet A   |               | Public Subnet B   |
+      | (10.0.1.0/24)     |               | (10.0.2.0/24)     |
+      +-------------------+               +-------------------+
+               |                                   |
+        +--------------+                    (optional capacity)
+        |   EC2 Web    | 
+        |  Apache +    |
+        |  PostgreSQL  |
+        |   Client     |
+        +--------------+
+               |
+               | Security Group (allow web + ssh)
+               |
+     +------------------- VPC Peering -------------------+
+               |
+      +-------------------+               +-------------------+
+      | Private Subnet A  |               | Private Subnet B  |
+      | (10.0.3.0/24)     |               | (10.0.4.0/24)     |
+      +-------------------+               +-------------------+
+               |                                   |
+            +-----------------------------------------+
+            |           RDS PostgreSQL (Multi-AZ)     |
+            |     Accessible only from EC2 SG         |
+            +-----------------------------------------+
+

@@ -1,3 +1,53 @@
+============================================================
+ AWS Infrastructure Assignment
+============================================================
+
+Objective:
+-----------
+Deploy and configure an AWS environment that includes an EC2 instance,
+a custom VPC with subnet, and an RDS PostgreSQL database. Secure and 
+verify connectivity between components, and demonstrate failover. 
+
+Requirements:
+-------------
+1. EC2 Instance
+   - AMI: Amazon Linux 2 (64-bit)
+   - Type: t2.micro
+   - VPC: custom (non-default) -> create a new VPC
+   - Subnet: custom public subnet (non-default) -> create a new subnet
+   - Install PostgreSQL client
+   - Install and start Apache Web Server
+   - Enable:
+       * Public access to Apache default web page
+       * SSH access restricted only to your IP
+   - Apply AWS tags:
+       * Name = test-ec2
+       * Description = Test instance
+       * CostCenter = 123456
+
+2. RDS Database
+   - Engine: Amazon RDS for PostgreSQL
+   - Instance type: db.t3.micro
+   - Deployment: Multi-AZ
+   - Configure connectivity between EC2 and RDS
+   - Create one sample table with several columns and rows
+
+3. Failover
+   - Demonstrate RDS failover from primary instance to standby
+
+4. Infrastructure as Code
+   - Use Terraform or AWS CloudFormation to deploy all resources
+
+Deliverables:
+-------------
+- Running infrastructure in AWS
+- Verification of:
+    * EC2 connectivity to RDS
+    * Web server accessibility from the internet
+    * Proper tagging on resources
+- Presentation of RDS failover
+
+
 # AWS VPC + EC2 + RDS Infrastructure (Terraform)
 
 This Terraform configuration provisions a custom AWS infrastructure designed for running a simple **web application with a PostgreSQL backend**. It creates a secure, highly-available Virtual Private Cloud (VPC) environment, deploys an EC2 instance with Apache + PostgreSQL client tools, and sets up an RDS PostgreSQL instance in private subnets.

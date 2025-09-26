@@ -1,0 +1,19 @@
+# EC2/PostgreSQL/Apache
+
+Napraviti EC2 instancu na AWS platformi koristeci sledece parametre:
+AMI: Amazon Linux 2 (64-bit)
+Type: t2.micro
+VPC: custom (non-default) --> kreirati custom VPC
+Subnet: custom (non-default) --> kreirati custom public subnet
+
+- Instalirati PostgreSQL klijenta na Linuxu. Instalirati i konfigurisati Amazon RDS for PostgreSQL (db.t3.micro) u Multi-AZ.
+- Konfigurisati i omoguciti komunikaciju izmedju EC2 (Linux) i RDS
+PostgreSQL. Kreirati jednu tabelu sa nekoliko proizvoljnih kolona i redova.
+- Instalirati i startovati Apache Web Server na datoj instanci. Omoguciti javni pristup default web stranici Apache web servera, i SSH pristup datom serveru samo sa svoje IP adrese.
+Koristeci AWS tagove, prilepiti sledece metapodatke za datu EC2 instancu:
+Tag key: Name, Tag value: test-ec2;
+Tag key: Description, Tag value: Test instance;
+Tag key: CostCenter, Tag value: 123456;
+Na prezentaciji demonstirati failover sa jedne RDS instance na drugu.
+**Napomena**: Obavezno koristiti IaC (Infrastructure as Code) tool po izboru
+(Terraform/CloudFormation), za podizanje prethodno opisane infrastrukture.

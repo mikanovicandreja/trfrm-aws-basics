@@ -1,0 +1,1016 @@
+              + protocol         = "-1"
+              + security_groups  = []
+              + self             = false
+              + to_port          = 0
+                # (1 unchanged attribute hidden)
+            },
+        ]
+      + id                     = (known after apply)
+      + ingress                = [
+          + {
+              + cidr_blocks      = [
+                  + "0.0.0.0/0",
+                ]
+              + description      = "Allow HTTP"
+              + from_port        = 80
+              + ipv6_cidr_blocks = []
+              + prefix_list_ids  = []
+              + protocol         = "tcp"
+              + security_groups  = []
+              + self             = false
+              + to_port          = 80
+            },
+          + {
+              + cidr_blocks      = [
+                  + "0.0.0.0/0",
+                ]
+              + description      = "Allow HTTPS"
+              + from_port        = 443
+              + ipv6_cidr_blocks = []
+              + prefix_list_ids  = []
+              + protocol         = "tcp"
+              + security_groups  = []
+              + self             = false
+              + to_port          = 443
+            },
+          + {
+              + cidr_blocks      = [
+                  + "45.87.212.180/32",
+                ]
+              + description      = "SSH from my IP only"
+              + from_port        = 22
+              + ipv6_cidr_blocks = []
+              + prefix_list_ids  = []
+              + protocol         = "tcp"
+              + security_groups  = []
+              + self             = false
+              + to_port          = 22
+            },
+        ]
+      + name                   = "allow_web_access"
+      + name_prefix            = (known after apply)
+      + owner_id               = (known after apply)
+      + region                 = "us-west-1"
+      + revoke_rules_on_delete = false
+      + tags                   = {
+          + "name" = "ec2-web-ssh"
+        }
+      + tags_all               = {
+          + "name" = "ec2-web-ssh"
+        }
+      + vpc_id                 = (known after apply)
+    }
+
+  # aws_security_group.rds_sg will be created
+  + resource "aws_security_group" "rds_sg" {
+      + arn                    = (known after apply)
+      + description            = "Allow PostgreSQL access from EC2"
+      + egress                 = [
+          + {
+              + cidr_blocks      = [
+                  + "0.0.0.0/0",
+                ]
+              + from_port        = 0
+              + ipv6_cidr_blocks = []
+              + prefix_list_ids  = []
+              + protocol         = "-1"
+              + security_groups  = []
+              + self             = false
+              + to_port          = 0
+                # (1 unchanged attribute hidden)
+            },
+        ]
+      + id                     = (known after apply)
+      + ingress                = [
+          + {
+              + cidr_blocks      = []
+              + description      = "PostgreSQL"
+              + from_port        = 5432
+              + ipv6_cidr_blocks = []
+              + prefix_list_ids  = []
+              + protocol         = "tcp"
+              + security_groups  = (known after apply)
+              + self             = false
+              + to_port          = 5432
+            },
+        ]
+      + name                   = "rds-sg"
+      + name_prefix            = (known after apply)
+      + owner_id               = (known after apply)
+      + region                 = "us-west-1"
+      + revoke_rules_on_delete = false
+      + tags_all               = (known after apply)
+      + vpc_id                 = (known after apply)
+    }
+
+  # aws_subnet.private_a will be created
+  + resource "aws_subnet" "private_a" {
+      + arn                                            = (known after apply)
+      + assign_ipv6_address_on_creation                = false
+      + availability_zone                              = "us-west-1a"
+      + availability_zone_id                           = (known after apply)
+      + cidr_block                                     = "10.0.3.0/24"
+      + enable_dns64                                   = false
+      + enable_resource_name_dns_a_record_on_launch    = false
+      + enable_resource_name_dns_aaaa_record_on_launch = false
+      + id                                             = (known after apply)
+      + ipv6_cidr_block_association_id                 = (known after apply)
+      + ipv6_native                                    = false
+      + map_public_ip_on_launch                        = true
+      + owner_id                                       = (known after apply)
+      + private_dns_hostname_type_on_launch            = (known after apply)
+      + region                                         = "us-west-1"
+      + tags                                           = {
+          + "Name" = "private-subnet-a"
+        }
+      + tags_all                                       = {
+          + "Name" = "private-subnet-a"
+        }
+      + vpc_id                                         = (known after apply)
+    }
+
+  # aws_subnet.private_b will be created
+  + resource "aws_subnet" "private_b" {
+      + arn                                            = (known after apply)
+      + assign_ipv6_address_on_creation                = false
+      + availability_zone                              = "us-west-1c"
+      + availability_zone_id                           = (known after apply)
+      + cidr_block                                     = "10.0.4.0/24"
+      + enable_dns64                                   = false
+      + enable_resource_name_dns_a_record_on_launch    = false
+      + enable_resource_name_dns_aaaa_record_on_launch = false
+      + id                                             = (known after apply)
+      + ipv6_cidr_block_association_id                 = (known after apply)
+      + ipv6_native                                    = false
+      + map_public_ip_on_launch                        = true
+      + owner_id                                       = (known after apply)
+      + private_dns_hostname_type_on_launch            = (known after apply)
+      + region                                         = "us-west-1"
+      + tags                                           = {
+          + "Name" = "private-subnet-b"
+        }
+      + tags_all                                       = {
+          + "Name" = "private-subnet-b"
+        }
+      + vpc_id                                         = (known after apply)
+    }
+
+  # aws_subnet.public_a will be created
+  + resource "aws_subnet" "public_a" {
+      + arn                                            = (known after apply)
+      + assign_ipv6_address_on_creation                = false
+      + availability_zone                              = "us-west-1a"
+      + availability_zone_id                           = (known after apply)
+      + cidr_block                                     = "10.0.1.0/24"
+      + enable_dns64                                   = false
+      + enable_resource_name_dns_a_record_on_launch    = false
+      + enable_resource_name_dns_aaaa_record_on_launch = false
+      + id                                             = (known after apply)
+      + ipv6_cidr_block_association_id                 = (known after apply)
+      + ipv6_native                                    = false
+      + map_public_ip_on_launch                        = true
+      + owner_id                                       = (known after apply)
+      + private_dns_hostname_type_on_launch            = (known after apply)
+      + region                                         = "us-west-1"
+      + tags                                           = {
+          + "Name" = "public-subnet-a"
+        }
+      + tags_all                                       = {
+          + "Name" = "public-subnet-a"
+        }
+      + vpc_id                                         = (known after apply)
+    }
+
+  # aws_subnet.public_b will be created
+  + resource "aws_subnet" "public_b" {
+      + arn                                            = (known after apply)
+      + assign_ipv6_address_on_creation                = false
+      + availability_zone                              = "us-west-1c"
+      + availability_zone_id                           = (known after apply)
+      + cidr_block                                     = "10.0.2.0/24"
+      + enable_dns64                                   = false
+      + enable_resource_name_dns_a_record_on_launch    = false
+      + enable_resource_name_dns_aaaa_record_on_launch = false
+      + id                                             = (known after apply)
+      + ipv6_cidr_block_association_id                 = (known after apply)
+      + ipv6_native                                    = false
+      + map_public_ip_on_launch                        = true
+      + owner_id                                       = (known after apply)
+      + private_dns_hostname_type_on_launch            = (known after apply)
+      + region                                         = "us-west-1"
+      + tags                                           = {
+          + "Name" = "public-subnet-b"
+        }
+      + tags_all                                       = {
+          + "Name" = "public-subnet-b"
+        }
+      + vpc_id                                         = (known after apply)
+    }
+
+  # aws_vpc.main will be created
+  + resource "aws_vpc" "main" {
+      + arn                                  = (known after apply)
+      + cidr_block                           = "10.0.0.0/16"
+      + default_network_acl_id               = (known after apply)
+      + default_route_table_id               = (known after apply)
+      + default_security_group_id            = (known after apply)
+      + dhcp_options_id                      = (known after apply)
+      + enable_dns_hostnames                 = true
+      + enable_dns_support                   = true
+      + enable_network_address_usage_metrics = (known after apply)
+      + id                                   = (known after apply)
+      + instance_tenancy                     = "default"
+      + ipv6_association_id                  = (known after apply)
+      + ipv6_cidr_block                      = (known after apply)
+      + ipv6_cidr_block_network_border_group = (known after apply)
+      + main_route_table_id                  = (known after apply)
+      + owner_id                             = (known after apply)
+      + region                               = "us-west-1"
+      + tags                                 = {
+          + "Name" = "custom-vpc"
+        }
+      + tags_all                             = {
+          + "Name" = "custom-vpc"
+        }
+    }
+
+Plan: 15 to add, 0 to change, 0 to destroy.
+
+Changes to Outputs:
+  + instance_public_ip = (known after apply)
+aws_key_pair.deployer: Creating...
+aws_vpc.main: Creating...
+aws_key_pair.deployer: Creation complete after 2s [id=new_key]
+aws_vpc.main: Still creating... [10s elapsed]
+aws_vpc.main: Creation complete after 14s [id=vpc-0eb1e7a899c298fb9]
+aws_internet_gateway.igw: Creating...
+aws_subnet.private_a: Creating...
+aws_subnet.private_b: Creating...
+aws_subnet.public_a: Creating...
+aws_subnet.public_b: Creating...
+aws_security_group.ec2_web_ssh: Creating...
+aws_internet_gateway.igw: Creation complete after 2s [id=igw-0afecc5c53cf7eef7]
+aws_route_table.public: Creating...
+aws_route_table.public: Creation complete after 2s [id=rtb-02c83b5a43aee5d75]
+aws_security_group.ec2_web_ssh: Creation complete after 5s [id=sg-0ff5b9ee3bf12d414]
+aws_security_group.rds_sg: Creating...
+aws_security_group.rds_sg: Creation complete after 4s [id=sg-0088aa0e06c74a50a]
+aws_subnet.public_a: Still creating... [10s elapsed]
+aws_subnet.private_a: Still creating... [10s elapsed]
+aws_subnet.public_b: Still creating... [10s elapsed]
+aws_subnet.private_b: Still creating... [10s elapsed]
+aws_subnet.private_a: Creation complete after 12s [id=subnet-0aa83a1081382cf90]
+aws_subnet.public_b: Creation complete after 12s [id=subnet-0898ebd63f689ea91]
+aws_route_table_association.public_b: Creating...
+aws_subnet.public_a: Creation complete after 12s [id=subnet-02e06b6b79b780ee5]
+aws_route_table_association.public_a: Creating...
+aws_instance.my_ec2: Creating...
+aws_subnet.private_b: Creation complete after 12s [id=subnet-0e8a0eaa1a17b5fbc]
+aws_db_subnet_group.rds_sn_group: Creating...
+aws_route_table_association.public_b: Creation complete after 1s [id=rtbassoc-07aa8fec854d21fd4]
+aws_route_table_association.public_a: Creation complete after 1s [id=rtbassoc-0dbd9e3f6372cf447]
+aws_db_subnet_group.rds_sn_group: Creation complete after 2s [id=rds-subnet-group]
+aws_db_instance.rds_psql: Creating...
+aws_instance.my_ec2: Still creating... [10s elapsed]
+aws_db_instance.rds_psql: Still creating... [10s elapsed]
+aws_instance.my_ec2: Still creating... [20s elapsed]
+aws_db_instance.rds_psql: Still creating... [19s elapsed]
+aws_instance.my_ec2: Creation complete after 24s [id=i-004458596f6167a75]
+aws_db_instance.rds_psql: Still creating... [29s elapsed]
+aws_db_instance.rds_psql: Still creating... [39s elapsed]
+aws_db_instance.rds_psql: Still creating... [49s elapsed]
+aws_db_instance.rds_psql: Still creating... [59s elapsed]
+aws_db_instance.rds_psql: Still creating... [1m9s elapsed]
+aws_db_instance.rds_psql: Still creating... [1m19s elapsed]
+aws_db_instance.rds_psql: Still creating... [1m29s elapsed]
+aws_db_instance.rds_psql: Still creating... [1m39s elapsed]
+aws_db_instance.rds_psql: Still creating... [1m49s elapsed]
+aws_db_instance.rds_psql: Still creating... [1m58s elapsed]
+aws_db_instance.rds_psql: Still creating... [2m8s elapsed]
+aws_db_instance.rds_psql: Still creating... [2m18s elapsed]
+aws_db_instance.rds_psql: Still creating... [2m28s elapsed]
+aws_db_instance.rds_psql: Still creating... [2m38s elapsed]
+aws_db_instance.rds_psql: Still creating... [2m48s elapsed]
+aws_db_instance.rds_psql: Still creating... [2m57s elapsed]
+aws_db_instance.rds_psql: Still creating... [3m7s elapsed]
+aws_db_instance.rds_psql: Still creating... [3m17s elapsed]
+aws_db_instance.rds_psql: Still creating... [3m27s elapsed]
+aws_db_instance.rds_psql: Still creating... [3m37s elapsed]
+aws_db_instance.rds_psql: Still creating... [3m47s elapsed]
+aws_db_instance.rds_psql: Still creating... [3m57s elapsed]
+aws_db_instance.rds_psql: Still creating... [4m7s elapsed]
+aws_db_instance.rds_psql: Still creating... [4m17s elapsed]
+aws_db_instance.rds_psql: Still creating... [4m27s elapsed]
+aws_db_instance.rds_psql: Still creating... [4m36s elapsed]
+aws_db_instance.rds_psql: Still creating... [4m46s elapsed]
+aws_db_instance.rds_psql: Still creating... [4m56s elapsed]
+aws_db_instance.rds_psql: Still creating... [5m6s elapsed]
+aws_db_instance.rds_psql: Still creating... [5m16s elapsed]
+aws_db_instance.rds_psql: Still creating... [5m26s elapsed]
+aws_db_instance.rds_psql: Still creating... [5m36s elapsed]
+aws_db_instance.rds_psql: Still creating... [5m46s elapsed]
+aws_db_instance.rds_psql: Still creating... [5m56s elapsed]
+aws_db_instance.rds_psql: Still creating... [6m5s elapsed]
+aws_db_instance.rds_psql: Still creating... [6m15s elapsed]
+aws_db_instance.rds_psql: Still creating... [6m25s elapsed]
+aws_db_instance.rds_psql: Still creating... [6m35s elapsed]
+aws_db_instance.rds_psql: Still creating... [6m45s elapsed]
+aws_db_instance.rds_psql: Still creating... [6m55s elapsed]
+aws_db_instance.rds_psql: Still creating... [7m5s elapsed]
+aws_db_instance.rds_psql: Still creating... [7m15s elapsed]
+aws_db_instance.rds_psql: Still creating... [7m25s elapsed]
+aws_db_instance.rds_psql: Still creating... [7m35s elapsed]
+aws_db_instance.rds_psql: Still creating... [7m44s elapsed]
+aws_db_instance.rds_psql: Still creating... [7m54s elapsed]
+aws_db_instance.rds_psql: Still creating... [8m4s elapsed]
+aws_db_instance.rds_psql: Still creating... [8m14s elapsed]
+aws_db_instance.rds_psql: Still creating... [8m24s elapsed]
+aws_db_instance.rds_psql: Still creating... [8m34s elapsed]
+aws_db_instance.rds_psql: Still creating... [8m43s elapsed]
+aws_db_instance.rds_psql: Still creating... [8m53s elapsed]
+aws_db_instance.rds_psql: Still creating... [9m3s elapsed]
+aws_db_instance.rds_psql: Still creating... [9m13s elapsed]
+aws_db_instance.rds_psql: Still creating... [9m23s elapsed]
+aws_db_instance.rds_psql: Still creating... [9m33s elapsed]
+aws_db_instance.rds_psql: Still creating... [9m43s elapsed]
+aws_db_instance.rds_psql: Still creating... [9m53s elapsed]
+aws_db_instance.rds_psql: Still creating... [10m3s elapsed]
+aws_db_instance.rds_psql: Still creating... [10m13s elapsed]
+aws_db_instance.rds_psql: Still creating... [10m23s elapsed]
+aws_db_instance.rds_psql: Still creating... [10m33s elapsed]
+aws_db_instance.rds_psql: Still creating... [10m43s elapsed]
+aws_db_instance.rds_psql: Still creating... [10m53s elapsed]
+aws_db_instance.rds_psql: Still creating... [11m3s elapsed]
+aws_db_instance.rds_psql: Still creating... [11m13s elapsed]
+aws_db_instance.rds_psql: Still creating... [11m23s elapsed]
+aws_db_instance.rds_psql: Still creating... [11m33s elapsed]
+aws_db_instance.rds_psql: Still creating... [11m43s elapsed]
+aws_db_instance.rds_psql: Still creating... [11m53s elapsed]
+aws_db_instance.rds_psql: Still creating... [12m3s elapsed]
+aws_db_instance.rds_psql: Still creating... [12m13s elapsed]
+aws_db_instance.rds_psql: Still creating... [12m23s elapsed]
+aws_db_instance.rds_psql: Still creating... [12m33s elapsed]
+aws_db_instance.rds_psql: Still creating... [12m43s elapsed]
+aws_db_instance.rds_psql: Still creating... [12m53s elapsed]
+aws_db_instance.rds_psql: Creation complete after 12m56s [id=db-O2ZWUCQPCENC4OBD3GVBD5CTWM]
+
+Apply complete! Resources: 15 added, 0 changed, 0 destroyed.
+
+Outputs:
+
+instance_public_ip = "54.193.203.249"
+andreja@AND-Acer-Laptop:/mnt/c/AWS-projects/GET-interview$ ssh -i /home/andreja/.ssh/new_key ec2-user@54.193.203.249
+The authenticity of host '54.193.203.249 (54.193.203.249)' can't be established.
+ED25519 key fingerprint is SHA256:+jW+/X6M3yCmVE/o/oV2agg8Ou5XZlNt9z9zJs4h9+Y.
+This key is not known by any other names.
+Are you sure you want to continue connecting (yes/no/[fingerprint])? yes
+Warning: Permanently added '54.193.203.249' (ED25519) to the list of known hosts.
+   ,     #_
+   ~\_  ####_        Amazon Linux 2
+  ~~  \_#####\
+  ~~     \###|       AL2 End of Life is 2026-06-30.
+  ~~       \#/ ___
+   ~~       V~' '->
+    ~~~         /    A newer version of Amazon Linux is available!
+      ~~._.   _/
+         _/ _/       Amazon Linux 2023, GA and supported until 2028-03-15.
+       _/m/'           https://aws.amazon.com/linux/amazon-linux-2023/
+
+[ec2-user@ip-10-0-1-51 ~]$ which httpd
+/usr/sbin/httpd
+[ec2-user@ip-10-0-1-51 ~]$ sudo systemctl status httpd
+● httpd.service - The Apache HTTP Server
+   Loaded: loaded (/usr/lib/systemd/system/httpd.service; enabled; vendor preset: disabled)
+   Active: active (running) since Sat 2025-07-26 18:09:26 UTC; 14min ago
+     Docs: man:httpd.service(8)
+ Main PID: 3220 (httpd)
+   Status: "Total requests: 0; Idle/Busy workers 100/0;Requests/sec: 0; Bytes served/sec:   0 B/sec"
+   CGroup: /system.slice/httpd.service
+           ├─3220 /usr/sbin/httpd -DFOREGROUND
+           ├─3224 /usr/sbin/httpd -DFOREGROUND
+           ├─3225 /usr/sbin/httpd -DFOREGROUND
+           ├─3226 /usr/sbin/httpd -DFOREGROUND
+           ├─3242 /usr/sbin/httpd -DFOREGROUND
+           └─3243 /usr/sbin/httpd -DFOREGROUND
+
+Jul 26 18:09:26 ip-10-0-1-51.us-west-1.compute.internal systemd[1]: Starting The Apache HTTP Server...
+Jul 26 18:09:26 ip-10-0-1-51.us-west-1.compute.internal systemd[1]: Started The Apache HTTP Server.
+[ec2-user@ip-10-0-1-51 ~]$ sudo yum install apache2
+Loaded plugins: extras_suggestions, langpacks, priorities, update-motd
+amzn2-core                                                                                              | 3.6 kB  00:00:00     
+No package apache2 available.
+Error: Nothing to do
+[ec2-user@ip-10-0-1-51 ~]$ sudo dnf install -y httpd php php-pgsql postgresql15
+sudo: dnf: command not found
+[ec2-user@ip-10-0-1-51 ~]$ sudo yum update
+Loaded plugins: extras_suggestions, langpacks, priorities, update-motd
+No packages marked for update
+[ec2-user@ip-10-0-1-51 ~]$ sudo yum upgradew
+Loaded plugins: extras_suggestions, langpacks, priorities, update-motd
+No such command: upgradew. Please use /bin/yum --help
+[ec2-user@ip-10-0-1-51 ~]$ python 3 --version
+python: can't open file '3': [Errno 2] No such file or directory
+[ec2-user@ip-10-0-1-51 ~]$ python3 --version
+Python 3.7.16
+[ec2-user@ip-10-0-1-51 ~]$ sudo yum update python
+Loaded plugins: extras_suggestions, langpacks, priorities, update-motd
+No packages marked for update
+[ec2-user@ip-10-0-1-51 ~]$ sudo yum update python3
+Loaded plugins: extras_suggestions, langpacks, priorities, update-motd
+No packages marked for update
+[ec2-user@ip-10-0-1-51 ~]$ sudo yum upgrade python3
+Loaded plugins: extras_suggestions, langpacks, priorities, update-motd
+No packages marked for update
+[ec2-user@ip-10-0-1-51 ~]$ cat /etc/system-release
+Amazon Linux release 2 (Karoo)
+[ec2-user@ip-10-0-1-51 ~]$ sudo yum install -y httpd php php-pgsql postgresql15
+Loaded plugins: extras_suggestions, langpacks, priorities, update-motd
+Package httpd-2.4.62-1.amzn2.0.2.x86_64 already installed and latest version
+No package postgresql15 available.
+Resolving Dependencies
+--> Running transaction check
+---> Package php.x86_64 0:5.4.16-46.amzn2.0.6 will be installed
+--> Processing Dependency: php-common(x86-64) = 5.4.16-46.amzn2.0.6 for package: php-5.4.16-46.amzn2.0.6.x86_64
+--> Processing Dependency: php-cli(x86-64) = 5.4.16-46.amzn2.0.6 for package: php-5.4.16-46.amzn2.0.6.x86_64
+---> Package php-pgsql.x86_64 0:5.4.16-46.amzn2.0.6 will be installed
+--> Processing Dependency: php-pdo(x86-64) = 5.4.16-46.amzn2.0.6 for package: php-pgsql-5.4.16-46.amzn2.0.6.x86_64
+--> Running transaction check
+---> Package php-cli.x86_64 0:5.4.16-46.amzn2.0.6 will be installed
+---> Package php-common.x86_64 0:5.4.16-46.amzn2.0.6 will be installed
+--> Processing Dependency: libzip.so.2()(64bit) for package: php-common-5.4.16-46.amzn2.0.6.x86_64
+---> Package php-pdo.x86_64 0:5.4.16-46.amzn2.0.6 will be installed
+--> Running transaction check
+---> Package libzip010-compat.x86_64 0:0.10.1-9.amzn2.0.5 will be installed
+--> Finished Dependency Resolution
+
+Dependencies Resolved
+
+===============================================================================================================================
+ Package                          Arch                   Version                              Repository                  Size 
+===============================================================================================================================
+Installing:
+ php                              x86_64                 5.4.16-46.amzn2.0.6                  amzn2-core                 1.4 M 
+ php-pgsql                        x86_64                 5.4.16-46.amzn2.0.6                  amzn2-core                  86 k 
+Installing for dependencies:
+ libzip010-compat                 x86_64                 0.10.1-9.amzn2.0.5                   amzn2-core                  30 k 
+ php-cli                          x86_64                 5.4.16-46.amzn2.0.6                  amzn2-core                 2.8 M 
+ php-common                       x86_64                 5.4.16-46.amzn2.0.6                  amzn2-core                 563 k 
+ php-pdo                          x86_64                 5.4.16-46.amzn2.0.6                  amzn2-core                  99 k 
+
+Transaction Summary
+===============================================================================================================================
+Install  2 Packages (+4 Dependent packages)
+
+Total download size: 4.9 M
+Installed size: 17 M
+Downloading packages:
+(1/6): libzip010-compat-0.10.1-9.amzn2.0.5.x86_64.rpm                                                   |  30 kB  00:00:00     
+(2/6): php-5.4.16-46.amzn2.0.6.x86_64.rpm                                                               | 1.4 MB  00:00:00     
+(3/6): php-common-5.4.16-46.amzn2.0.6.x86_64.rpm                                                        | 563 kB  00:00:00     
+(4/6): php-cli-5.4.16-46.amzn2.0.6.x86_64.rpm                                                           | 2.8 MB  00:00:00     
+(5/6): php-pdo-5.4.16-46.amzn2.0.6.x86_64.rpm                                                           |  99 kB  00:00:00     
+(6/6): php-pgsql-5.4.16-46.amzn2.0.6.x86_64.rpm                                                         |  86 kB  00:00:00     
+-------------------------------------------------------------------------------------------------------------------------------
+Total                                                                                           12 MB/s | 4.9 MB  00:00:00     
+Running transaction check
+Running transaction test
+Transaction test succeeded
+Running transaction
+  Installing : libzip010-compat-0.10.1-9.amzn2.0.5.x86_64                                                                  1/6 
+  Installing : php-common-5.4.16-46.amzn2.0.6.x86_64                                                                       2/6 
+  Installing : php-cli-5.4.16-46.amzn2.0.6.x86_64                                                                          3/6 
+  Installing : php-pdo-5.4.16-46.amzn2.0.6.x86_64                                                                          4/6 
+  Installing : php-pgsql-5.4.16-46.amzn2.0.6.x86_64                                                                        5/6 
+  Installing : php-5.4.16-46.amzn2.0.6.x86_64                                                                              6/6 
+  Verifying  : libzip010-compat-0.10.1-9.amzn2.0.5.x86_64                                                                  1/6 
+  Verifying  : php-common-5.4.16-46.amzn2.0.6.x86_64                                                                       2/6 
+  Verifying  : php-cli-5.4.16-46.amzn2.0.6.x86_64                                                                          3/6 
+  Verifying  : php-5.4.16-46.amzn2.0.6.x86_64                                                                              4/6 
+  Verifying  : php-pgsql-5.4.16-46.amzn2.0.6.x86_64                                                                        5/6 
+  Verifying  : php-pdo-5.4.16-46.amzn2.0.6.x86_64                                                                          6/6 
+
+Installed:
+  php.x86_64 0:5.4.16-46.amzn2.0.6                            php-pgsql.x86_64 0:5.4.16-46.amzn2.0.6
+
+Dependency Installed:
+  libzip010-compat.x86_64 0:0.10.1-9.amzn2.0.5  php-cli.x86_64 0:5.4.16-46.amzn2.0.6  php-common.x86_64 0:5.4.16-46.amzn2.0.6  
+  php-pdo.x86_64 0:5.4.16-46.amzn2.0.6
+
+Complete!
+[ec2-user@ip-10-0-1-51 ~]$ sudo systemctl restart httpd
+[ec2-user@ip-10-0-1-51 ~]$ sudo usermod -a -G apache ec2-user
+[ec2-user@ip-10-0-1-51 ~]$ sudo yum isntall -y mod_ssl
+Loaded plugins: extras_suggestions, langpacks, priorities, update-motd
+No such command: isntall. Please use /bin/yum --help
+[ec2-user@ip-10-0-1-51 ~]$ sudo yum install -y mod_ssl
+Loaded plugins: extras_suggestions, langpacks, priorities, update-motd
+amzn2-core                                                                                              | 3.6 kB  00:00:00     
+Resolving Dependencies
+--> Running transaction check
+---> Package mod_ssl.x86_64 1:2.4.62-1.amzn2.0.2 will be installed
+--> Processing Dependency: sscg >= 2.2.0 for package: 1:mod_ssl-2.4.62-1.amzn2.0.2.x86_64
+--> Running transaction check
+---> Package sscg.x86_64 0:2.3.3-2.amzn2.0.1 will be installed
+--> Processing Dependency: libtalloc.so.2(TALLOC_2.0.2)(64bit) for package: sscg-2.3.3-2.amzn2.0.1.x86_64
+--> Processing Dependency: libtalloc.so.2()(64bit) for package: sscg-2.3.3-2.amzn2.0.1.x86_64
+--> Running transaction check
+---> Package libtalloc.x86_64 0:2.1.16-1.amzn2 will be installed
+--> Finished Dependency Resolution
+
+Dependencies Resolved
+
+===============================================================================================================================
+ Package                    Arch                    Version                                  Repository                   Size 
+===============================================================================================================================
+Installing:
+ mod_ssl                    x86_64                  1:2.4.62-1.amzn2.0.2                     amzn2-core                  119 k 
+Installing for dependencies:
+ libtalloc                  x86_64                  2.1.16-1.amzn2                           amzn2-core                   42 k 
+ sscg                       x86_64                  2.3.3-2.amzn2.0.1                        amzn2-core                   51 k 
+
+Transaction Summary
+===============================================================================================================================
+Install  1 Package (+2 Dependent packages)
+
+Total download size: 212 k
+Installed size: 438 k
+Downloading packages:
+(1/3): libtalloc-2.1.16-1.amzn2.x86_64.rpm                                                              |  42 kB  00:00:00     
+(2/3): sscg-2.3.3-2.amzn2.0.1.x86_64.rpm                                                                |  51 kB  00:00:00     
+(3/3): mod_ssl-2.4.62-1.amzn2.0.2.x86_64.rpm                                                            | 119 kB  00:00:00     
+-------------------------------------------------------------------------------------------------------------------------------
+Total                                                                                          1.2 MB/s | 212 kB  00:00:00     
+Running transaction check
+Running transaction test
+Transaction test succeeded
+Running transaction
+  Installing : libtalloc-2.1.16-1.amzn2.x86_64                                                                             1/3 
+  Installing : sscg-2.3.3-2.amzn2.0.1.x86_64                                                                               2/3 
+  Installing : 1:mod_ssl-2.4.62-1.amzn2.0.2.x86_64                                                                         3/3 
+  Verifying  : sscg-2.3.3-2.amzn2.0.1.x86_64                                                                               1/3 
+  Verifying  : libtalloc-2.1.16-1.amzn2.x86_64                                                                             2/3 
+  Verifying  : 1:mod_ssl-2.4.62-1.amzn2.0.2.x86_64                                                                         3/3 
+
+Installed:
+  mod_ssl.x86_64 1:2.4.62-1.amzn2.0.2
+
+Dependency Installed:
+  libtalloc.x86_64 0:2.1.16-1.amzn2                               sscg.x86_64 0:2.3.3-2.amzn2.0.1
+
+Complete!
+[ec2-user@ip-10-0-1-51 ~]$ cat /etc/httpd/conf.d/ssl.conf
+#
+# When we also provide SSL we have to listen to the
+# the HTTPS port in addition.
+#
+Listen 443 https
+
+##
+##  SSL Global Context
+##
+##  All SSL configuration in this context applies both to
+##  the main server and all SSL-enabled virtual hosts.
+##
+
+#   Pass Phrase Dialog:
+#   Configure the pass phrase gathering process.
+#   The filtering dialog program (`builtin' is a internal
+#   terminal dialog) has to provide the pass phrase on stdout.
+SSLPassPhraseDialog exec:/usr/libexec/httpd-ssl-pass-dialog
+
+#   Inter-Process Session Cache:
+#   Configure the SSL Session Cache: First the mechanism
+#   to use and second the expiring timeout (in seconds).
+SSLSessionCache         shmcb:/run/httpd/sslcache(512000)
+SSLSessionCacheTimeout  300
+
+#   Pseudo Random Number Generator (PRNG):
+#   Configure one or more sources to seed the PRNG of the
+#   SSL library. The seed data should be of good random quality.
+#   WARNING! On some platforms /dev/random blocks if not enough entropy
+#   is available. This means you then cannot use the /dev/random device
+#   because it would lead to very long connection times (as long as
+#   it requires to make more entropy available). But usually those
+#   platforms additionally provide a /dev/urandom device which doesn't
+#   block. So, if available, use this one instead. Read the mod_ssl User
+#   Manual for more details.
+SSLRandomSeed startup file:/dev/urandom  256
+SSLRandomSeed connect builtin
+#SSLRandomSeed startup file:/dev/random  512
+#SSLRandomSeed connect file:/dev/random  512
+#SSLRandomSeed connect file:/dev/urandom 512
+
+#
+# Use "SSLCryptoDevice" to enable any supported hardware
+# accelerators. Use "openssl engine -v" to list supported
+# engine names.  NOTE: If you enable an accelerator and the
+# server does not start, consult the error logs and ensure
+# your accelerator is functioning properly.
+#
+SSLCryptoDevice builtin
+#SSLCryptoDevice ubsec
+
+##
+## SSL Virtual Host Context
+##
+
+<VirtualHost _default_:443>
+
+# General setup for the virtual host, inherited from global configuration
+#DocumentRoot "/var/www/html"
+#ServerName www.example.com:443
+
+# Use separate log files for the SSL virtual host; note that LogLevel
+# is not inherited from httpd.conf.
+ErrorLog logs/ssl_error_log
+TransferLog logs/ssl_access_log
+LogLevel warn
+
+#   SSL Engine Switch:
+#   Enable/Disable SSL for this virtual host.
+SSLEngine on
+
+#   SSL Protocol support:
+# List the enable protocol levels with which clients will be able to
+# connect.  Disable SSLv2 access by default:
+SSLProtocol all -SSLv3
+
+#   SSL Cipher Suite:
+#   List the ciphers that the client is permitted to negotiate.
+#   See the mod_ssl documentation for a complete list.
+SSLCipherSuite HIGH:MEDIUM:!aNULL:!MD5:!SEED:!IDEA
+
+#   Speed-optimized SSL Cipher configuration:
+#   If speed is your main concern (on busy HTTPS servers e.g.),
+#   you might want to force clients to specific, performance
+#   optimized ciphers. In this case, prepend those ciphers
+#   to the SSLCipherSuite list, and enable SSLHonorCipherOrder.
+#   Caveat: by giving precedence to RC4-SHA and AES128-SHA
+#   (as in the example below), most connections will no longer
+#   have perfect forward secrecy - if the server's key is
+#   compromised, captures of past or future traffic must be
+#   considered compromised, too.
+#SSLCipherSuite RC4-SHA:AES128-SHA:HIGH:MEDIUM:!aNULL:!MD5
+#SSLHonorCipherOrder on
+
+#   Server Certificate:
+# Point SSLCertificateFile at a PEM encoded certificate.  If
+# the certificate is encrypted, then you will be prompted for a
+# pass phrase.  Note that a kill -HUP will prompt again.  A new
+# certificate can be generated using the genkey(1) command.
+SSLCertificateFile /etc/pki/tls/certs/localhost.crt
+
+#   Server Private Key:
+#   If the key is not combined with the certificate, use this
+#   directive to point at the key file.  Keep in mind that if
+#   you've both a RSA and a DSA private key you can configure
+#   both in parallel (to also allow the use of DSA ciphers, etc.)
+SSLCertificateKeyFile /etc/pki/tls/private/localhost.key
+
+#   Server Certificate Chain:
+#   Point SSLCertificateChainFile at a file containing the
+#   concatenation of PEM encoded CA certificates which form the
+#   certificate chain for the server certificate. Alternatively
+#   the referenced file can be the same as SSLCertificateFile
+#   when the CA certificates are directly appended to the server
+#   certificate for convinience.
+#SSLCertificateChainFile /etc/pki/tls/certs/server-chain.crt
+
+#   Certificate Authority (CA):
+#   Set the CA certificate verification path where to find CA
+#   certificates for client authentication or alternatively one
+#   huge file containing all of them (file must be PEM encoded)
+#SSLCACertificateFile /etc/pki/tls/certs/ca-bundle.crt
+
+#   Client Authentication (Type):
+#   Client certificate verification type and depth.  Types are
+#   none, optional, require and optional_no_ca.  Depth is a
+#   number which specifies how deeply to verify the certificate
+#   issuer chain before deciding the certificate is not valid.
+#SSLVerifyClient require
+#SSLVerifyDepth  10
+
+#   Access Control:
+#   With SSLRequire you can do per-directory access control based
+#   on arbitrary complex boolean expressions containing server
+#   variable checks and other lookup directives.  The syntax is a
+#   mixture between C and Perl.  See the mod_ssl documentation
+#   for more details.
+#<Location />
+#SSLRequire (    %{SSL_CIPHER} !~ m/^(EXP|NULL)/ \
+#            and %{SSL_CLIENT_S_DN_O} eq "Snake Oil, Ltd." \
+#            and %{SSL_CLIENT_S_DN_OU} in {"Staff", "CA", "Dev"} \
+#            and %{TIME_WDAY} >= 1 and %{TIME_WDAY} <= 5 \
+#            and %{TIME_HOUR} >= 8 and %{TIME_HOUR} <= 20       ) \
+#           or %{REMOTE_ADDR} =~ m/^192\.76\.162\.[0-9]+$/
+#</Location>
+
+#   SSL Engine Options:
+#   Set various options for the SSL engine.
+#   o FakeBasicAuth:
+#     Translate the client X.509 into a Basic Authorisation.  This means that
+#     the standard Auth/DBMAuth methods can be used for access control.  The
+#     user name is the `one line' version of the client's X.509 certificate.
+#     Note that no password is obtained from the user. Every entry in the user
+#     file needs this password: `xxj31ZMTZzkVA'.
+#   o ExportCertData:
+#     This exports two additional environment variables: SSL_CLIENT_CERT and
+#     SSL_SERVER_CERT. These contain the PEM-encoded certificates of the
+#     server (always existing) and the client (only existing when client
+#     authentication is used). This can be used to import the certificates
+#     into CGI scripts.
+#   o StdEnvVars:
+#     This exports the standard SSL/TLS related `SSL_*' environment variables.
+#     Per default this exportation is switched off for performance reasons,
+#     because the extraction step is an expensive operation and is usually
+#     useless for serving static content. So one usually enables the
+#     exportation for CGI and SSI requests only.
+#   o StrictRequire:
+#     This denies access when "SSLRequireSSL" or "SSLRequire" applied even
+#     under a "Satisfy any" situation, i.e. when it applies access is denied
+#     and no other module can change it.
+#   o OptRenegotiate:
+#     This enables optimized SSL connection renegotiation handling when SSL
+#     directives are used in per-directory context.
+#SSLOptions +FakeBasicAuth +ExportCertData +StrictRequire
+<Files ~ "\.(cgi|shtml|phtml|php3?)$">
+    SSLOptions +StdEnvVars
+</Files>
+<Directory "/var/www/cgi-bin">
+    SSLOptions +StdEnvVars
+</Directory>
+
+#   SSL Protocol Adjustments:
+#   The safe and default but still SSL/TLS standard compliant shutdown
+#   approach is that mod_ssl sends the close notify alert but doesn't wait for
+#   the close notify alert from client. When you need a different shutdown
+#   approach you can use one of the following variables:
+#   o ssl-unclean-shutdown:
+#     This forces an unclean shutdown when the connection is closed, i.e. no
+#     SSL close notify alert is send or allowed to received.  This violates
+#     the SSL/TLS standard but is needed for some brain-dead browsers. Use
+#     this when you receive I/O errors because of the standard approach where
+#     mod_ssl sends the close notify alert.
+#   o ssl-accurate-shutdown:
+#     This forces an accurate shutdown when the connection is closed, i.e. a
+#     SSL close notify alert is send and mod_ssl waits for the close notify
+#     alert of the client. This is 100% SSL/TLS standard compliant, but in
+#     practice often causes hanging connections with brain-dead browsers. Use
+#     this only for browsers where you know that their SSL implementation
+#     works correctly.
+#   Notice: Most problems of broken clients are also related to the HTTP
+#   keep-alive facility, so you usually additionally want to disable
+#   keep-alive for those clients, too. Use variable "nokeepalive" for this.
+#   Similarly, one has to force some clients to use HTTP/1.0 to workaround
+#   their broken HTTP/1.1 implementation. Use variables "downgrade-1.0" and
+#   "force-response-1.0" for this.
+BrowserMatch "MSIE [2-5]" \
+         nokeepalive ssl-unclean-shutdown \
+         downgrade-1.0 force-response-1.0
+
+#   Per-Server Logging:
+#   The home of a custom SSL log file. Use this when you want a
+#   compact non-error SSL logfile on a virtual host basis.
+CustomLog logs/ssl_request_log \
+          "%t %h %{SSL_PROTOCOL}x %{SSL_CIPHER}x \"%r\" %b"
+
+</VirtualHost>
+
+[ec2-user@ip-10-0-1-51 ~]$ cat /etc/pki/tls/privat/localhost.key
+cat: /etc/pki/tls/privat/localhost.key: No such file or directory
+[ec2-user@ip-10-0-1-51 ~]$ cat /etc/pki/tls/private/localhost.key
+cat: /etc/pki/tls/private/localhost.key: No such file or directory
+[ec2-user@ip-10-0-1-51 ~]$ sudo opensslgenrsa -out custom.key
+sudo: opensslgenrsa: command not found
+[ec2-user@ip-10-0-1-51 ~]$ sudo openssl genrsa -out custom.key
+Generating RSA private key, 2048 bit long modulus
+.....................+++
+..........................+++
+e is 65537 (0x10001)
+[ec2-user@ip-10-0-1-51 ~]$ sudo openssl genrsa -out custom.key 4096
+Generating RSA private key, 4096 bit long modulus
+...............................................................++
+............................++
+e is 65537 (0x10001)
+[ec2-user@ip-10-0-1-51 ~]$ sudo chown root.root custom.key
+[ec2-user@ip-10-0-1-51 ~]$ sudo chmod 600 custom.key
+[ec2-user@ip-10-0-1-51 ~]$ ls -al custom.key
+-rw------- 1 root root 3243 Jul 26 18:40 custom.key
+[ec2-user@ip-10-0-1-51 ~]$ sudo openssl req -new -key custom.key -out csr.pem
+You are about to be asked to enter information that will be incorporated
+into your certificate request.
+What you are about to enter is what is called a Distinguished Name or a DN.
+There are quite a few fields but you can leave some blank
+For some fields there will be a default value,
+If you enter '.', the field will be left blank.
+-----
+Country Name (2 letter code) [XX]:rs
+State or Province Name (full name) []:Vojvodina
+Locality Name (eg, city) [Default City]:Novi Sad
+Organization Name (eg, company) [Default Company Ltd]:
+Organizational Unit Name (eg, section) []:
+Common Name (eg, your name or your server's hostname) []:andreja
+Email Address []:mikanovic.andreja@gmail.com
+
+Please enter the following 'extra' attributes
+to be sent with your certificate request
+A challenge password []:1
+string is too short, it needs to be at least 4 bytes long
+A challenge password []:Andreja2425
+An optional company name []:
+[ec2-user@ip-10-0-1-51 ~]$ ioenssl x509 -in certificate.crt -text
+-bash: ioenssl: command not found
+[ec2-user@ip-10-0-1-51 ~]$ openssl x509 -in certificate.crt -text
+Error opening Certificate certificate.crt
+140028255410080:error:02001002:system library:fopen:No such file or directory:bss_file.c:402:fopen('certificate.crt','r')      
+140028255410080:error:20074002:BIO routines:FILE_CTRL:system lib:bss_file.c:404:
+unable to load certificate
+[ec2-user@ip-10-0-1-51 ~]$ sudo openssl x509 -in certificate.crt -text
+Error opening Certificate certificate.crt
+139907258840992:error:02001002:system library:fopen:No such file or directory:bss_file.c:402:fopen('certificate.crt','r')      
+139907258840992:error:20074002:BIO routines:FILE_CTRL:system lib:bss_file.c:404:
+unable to load certificate
+[ec2-user@ip-10-0-1-51 ~]$ sudo chown root.root custom.crt
+chown: cannot access ‘custom.crt’: No such file or directory
+[ec2-user@ip-10-0-1-51 ~]$ cd /etc/pki/tls/certs
+[ec2-user@ip-10-0-1-51 certs]$ sudo chown root.root custom.crt
+chown: cannot access ‘custom.crt’: No such file or directory
+[ec2-user@ip-10-0-1-51 certs]$ sudo openssl req -new -key custom.key -out csr.pem
+Error opening Private Key custom.key
+140597673912224:error:02001002:system library:fopen:No such file or directory:bss_file.c:402:fopen('custom.key','r')
+140597673912224:error:20074002:BIO routines:FILE_CTRL:system lib:bss_file.c:404:
+unable to load Private Key
+[ec2-user@ip-10-0-1-51 certs]$ cd /root
+-bash: cd: /root: Permission denied
+[ec2-user@ip-10-0-1-51 certs]$ sudo systemctl restart httpd
+[ec2-user@ip-10-0-1-51 certs]$ psql --host=postgres-db.crk4kickasi7.us-west-1.rds.amazonaws.com --port=5432 --username=postgres
+ --password=Andreja2425 --dbname=mydb
+psql: option '--password' doesn't allow an argument
+Try "psql --help" for more information.
+[ec2-user@ip-10-0-1-51 certs]$ psql --host=postgres-db.crk4kickasi7.us-west-1.rds.amazonaws.com --port=5432 --username=postgres --password --dbname=mydb
+Password: 
+psql (14.18, server 14.17)
+SSL connection (protocol: TLSv1.2, cipher: ECDHE-RSA-AES256-GCM-SHA384, bits: 256, compression: off)
+Type "help" for help.
+
+mydb=> CREATE TABLE accounts (
+mydb(> user_id SERIAL PRIMARY KEY,
+mydb(> username VARCHAR (50) UNIQUE NOT NULL,
+mydb(> email VARCHAR (255) UNIQUE NOT NULL,
+mydb(> created_at TIMESTAMP NOT NULL,
+mydb(> last_login TIMESTAMP
+mydb(> );
+CREATE TABLE
+mydb=> \d accounts
+                                           Table "public.accounts"
+   Column   |            Type             | Collation | Nullable |                  Default
+------------+-----------------------------+-----------+----------+-------------------------------------------
+ user_id    | integer                     |           | not null | nextval('accounts_user_id_seq'::regclass)
+ username   | character varying(50)       |           | not null |
+ email      | character varying(255)      |           | not null |
+ created_at | timestamp without time zone |           | not null |
+ last_login | timestamp without time zone |           |          |
+Indexes:
+    "accounts_pkey" PRIMARY KEY, btree (user_id)
+    "accounts_email_key" UNIQUE CONSTRAINT, btree (email)
+    "accounts_username_key" UNIQUE CONSTRAINT, btree (username)
+
+mydb=> SELECT * FROM accounts
+mydb-> SELECT * FROM accounts;
+ERROR:  syntax error at or near "SELECT"
+LINE 2: SELECT * FROM accounts;
+        ^
+mydb=> SELECT * FROM accounts;
+ user_id | username | email | created_at | last_login 
+---------+----------+-------+------------+------------
+(0 rows)
+
+mydb=> INSERT INTO accounts (username, email) VALUES ('s.max', 'sail.max@smx.com');
+ERROR:  null value in column "created_at" of relation "accounts" violates not-null constraint
+DETAIL:  Failing row contains (1, s.max, sail.max@smx.com, null, null).
+mydb=> INSERT INTO accounts (username, email) VALUES ('', 's.max', 'sail.max@smx.com', '', '');
+ERROR:  INSERT has more expressions than target columns
+LINE 1: ...O accounts (username, email) VALUES ('', 's.max', 'sail.max@...
+                                                             ^
+mydb=> INSERT INTO accounts (user_id, username, email, created_at, last_login) VALUES ('', 's.max', 'sail.max@smx.com', '', '')
+;
+ERROR:  invalid input syntax for type integer: ""
+LINE 1: ... username, email, created_at, last_login) VALUES ('', 's.max...
+                                                             ^
+mydb=> INSERT INTO accounts(user_id, username, email, created_at, last_login) VALUES ('', 's.max', 'sail.max@smx.com', '', '');
+
+ERROR:  invalid input syntax for type integer: ""
+LINE 1: ... username, email, created_at, last_login) VALUES ('', 's.max...
+                                                             ^
+mydb=> INSERT INTO accounts (username, email) VALUES('s.max', 'sail.max@smx.com');
+ERROR:  null value in column "created_at" of relation "accounts" violates not-null constraint
+DETAIL:  Failing row contains (2, s.max, sail.max@smx.com, null, null).
+mydb=> CREATE TABLE purchase_orders (
+mydb(>   order_id SERIAL PRIMARY KEY,
+mydb(>   order_date TIMESTAMP WITH TIME ZONE DEFAULT current_timestamp
+mydb(> );
+CREATE TABLE
+mydb=>
+mydb=> INSERT INTO purchase_orders (order_id)
+mydb-> VALUES (1);
+INSERT 0 1
+mydb=> INSERT INTO purchase_orders (order_id)
+mydb-> VALUES (2);
+INSERT 0 1
+mydb=> SELECT * FROM purchase_orders;
+ order_id |          order_date
+----------+-------------------------------
+        1 | 2025-07-26 19:16:34.732914+00
+        2 | 2025-07-26 19:16:37.962656+00
+(2 rows)
+
+mydb=> exit
+[ec2-user@ip-10-0-1-51 certs]$ while true; do host postgres-db.crk4kickasi7.us-west-1.rds.amazonaws.com ; sleep 3; done
+postgres-db.crk4kickasi7.us-west-1.rds.amazonaws.com has address 10.0.3.154
+postgres-db.crk4kickasi7.us-west-1.rds.amazonaws.com has address 10.0.3.154
+postgres-db.crk4kickasi7.us-west-1.rds.amazonaws.com has address 10.0.3.154
+postgres-db.crk4kickasi7.us-west-1.rds.amazonaws.com has address 10.0.3.154
+postgres-db.crk4kickasi7.us-west-1.rds.amazonaws.com has address 10.0.3.154
+postgres-db.crk4kickasi7.us-west-1.rds.amazonaws.com has address 10.0.3.154
+postgres-db.crk4kickasi7.us-west-1.rds.amazonaws.com has address 10.0.3.154
+postgres-db.crk4kickasi7.us-west-1.rds.amazonaws.com has address 10.0.3.154
+postgres-db.crk4kickasi7.us-west-1.rds.amazonaws.com has address 10.0.3.154
+postgres-db.crk4kickasi7.us-west-1.rds.amazonaws.com has address 10.0.3.154
+postgres-db.crk4kickasi7.us-west-1.rds.amazonaws.com has address 10.0.3.154
+postgres-db.crk4kickasi7.us-west-1.rds.amazonaws.com has address 10.0.3.154
+postgres-db.crk4kickasi7.us-west-1.rds.amazonaws.com has address 10.0.3.154
+postgres-db.crk4kickasi7.us-west-1.rds.amazonaws.com has address 10.0.3.154
+postgres-db.crk4kickasi7.us-west-1.rds.amazonaws.com has address 10.0.3.154
+postgres-db.crk4kickasi7.us-west-1.rds.amazonaws.com has address 10.0.3.154
+postgres-db.crk4kickasi7.us-west-1.rds.amazonaws.com has address 10.0.3.154
+postgres-db.crk4kickasi7.us-west-1.rds.amazonaws.com has address 10.0.3.154
+postgres-db.crk4kickasi7.us-west-1.rds.amazonaws.com has address 10.0.3.154
+postgres-db.crk4kickasi7.us-west-1.rds.amazonaws.com has address 10.0.3.154
+postgres-db.crk4kickasi7.us-west-1.rds.amazonaws.com has address 10.0.3.154
+postgres-db.crk4kickasi7.us-west-1.rds.amazonaws.com has address 10.0.3.154
+postgres-db.crk4kickasi7.us-west-1.rds.amazonaws.com has address 10.0.3.154
+postgres-db.crk4kickasi7.us-west-1.rds.amazonaws.com has address 10.0.3.154
+postgres-db.crk4kickasi7.us-west-1.rds.amazonaws.com has address 10.0.3.154
+postgres-db.crk4kickasi7.us-west-1.rds.amazonaws.com has address 10.0.3.154
+postgres-db.crk4kickasi7.us-west-1.rds.amazonaws.com has address 10.0.3.154
+postgres-db.crk4kickasi7.us-west-1.rds.amazonaws.com has address 10.0.3.154
+postgres-db.crk4kickasi7.us-west-1.rds.amazonaws.com has address 10.0.3.154
+postgres-db.crk4kickasi7.us-west-1.rds.amazonaws.com has address 10.0.3.154
+postgres-db.crk4kickasi7.us-west-1.rds.amazonaws.com has address 10.0.3.154
+postgres-db.crk4kickasi7.us-west-1.rds.amazonaws.com has address 10.0.3.154
+postgres-db.crk4kickasi7.us-west-1.rds.amazonaws.com has address 10.0.3.154
+postgres-db.crk4kickasi7.us-west-1.rds.amazonaws.com has address 10.0.3.154
+postgres-db.crk4kickasi7.us-west-1.rds.amazonaws.com has address 10.0.3.154
+postgres-db.crk4kickasi7.us-west-1.rds.amazonaws.com has address 10.0.3.154
+postgres-db.crk4kickasi7.us-west-1.rds.amazonaws.com has address 10.0.3.154
+postgres-db.crk4kickasi7.us-west-1.rds.amazonaws.com has address 10.0.3.154
+postgres-db.crk4kickasi7.us-west-1.rds.amazonaws.com has address 10.0.3.154
+postgres-db.crk4kickasi7.us-west-1.rds.amazonaws.com has address 10.0.3.154
+postgres-db.crk4kickasi7.us-west-1.rds.amazonaws.com has address 10.0.3.154
+postgres-db.crk4kickasi7.us-west-1.rds.amazonaws.com has address 10.0.3.154
+postgres-db.crk4kickasi7.us-west-1.rds.amazonaws.com has address 10.0.3.154
+postgres-db.crk4kickasi7.us-west-1.rds.amazonaws.com has address 10.0.3.154
+postgres-db.crk4kickasi7.us-west-1.rds.amazonaws.com has address 10.0.3.154
+postgres-db.crk4kickasi7.us-west-1.rds.amazonaws.com has address 10.0.3.154
+postgres-db.crk4kickasi7.us-west-1.rds.amazonaws.com has address 10.0.4.82
+postgres-db.crk4kickasi7.us-west-1.rds.amazonaws.com has address 10.0.4.82
+postgres-db.crk4kickasi7.us-west-1.rds.amazonaws.com has address 10.0.4.82
+postgres-db.crk4kickasi7.us-west-1.rds.amazonaws.com has address 10.0.4.82
+postgres-db.crk4kickasi7.us-west-1.rds.amazonaws.com has address 10.0.4.82
+postgres-db.crk4kickasi7.us-west-1.rds.amazonaws.com has address 10.0.4.82
+postgres-db.crk4kickasi7.us-west-1.rds.amazonaws.com has address 10.0.4.82
+postgres-db.crk4kickasi7.us-west-1.rds.amazonaws.com has address 10.0.4.82
+postgres-db.crk4kickasi7.us-west-1.rds.amazonaws.com has address 10.0.4.82
+postgres-db.crk4kickasi7.us-west-1.rds.amazonaws.com has address 10.0.4.82
+postgres-db.crk4kickasi7.us-west-1.rds.amazonaws.com has address 10.0.4.82
+postgres-db.crk4kickasi7.us-west-1.rds.amazonaws.com has address 10.0.4.82
+postgres-db.crk4kickasi7.us-west-1.rds.amazonaws.com has address 10.0.4.82
+postgres-db.crk4kickasi7.us-west-1.rds.amazonaws.com has address 10.0.4.82
+postgres-db.crk4kickasi7.us-west-1.rds.amazonaws.com has address 10.0.4.82
+postgres-db.crk4kickasi7.us-west-1.rds.amazonaws.com has address 10.0.4.82
+postgres-db.crk4kickasi7.us-west-1.rds.amazonaws.com has address 10.0.4.82
+postgres-db.crk4kickasi7.us-west-1.rds.amazonaws.com has address 10.0.4.82
+postgres-db.crk4kickasi7.us-west-1.rds.amazonaws.com has address 10.0.4.82
+postgres-db.crk4kickasi7.us-west-1.rds.amazonaws.com has address 10.0.4.82
+postgres-db.crk4kickasi7.us-west-1.rds.amazonaws.com has address 10.0.4.82
+^C
+[ec2-user@ip-10-0-1-51 certs]$ psql --host=postgres-db.crk4kickasi7.us-west-1.rds.amazonaws.com --port=5432 --username=postgres --password --dbname=mydb
+Password: 
+psql (14.18, server 14.17)
+SSL connection (protocol: TLSv1.2, cipher: ECDHE-RSA-AES256-GCM-SHA384, bits: 256, compression: off)
+Type "help" for help.
+
+mydb=> SELECT * FROM purchase_orders
+mydb-> SELECT * FROM purchase_orders;
+ERROR:  syntax error at or near "SELECT"
+LINE 2: SELECT * FROM purchase_orders;
+        ^
+mydb=> SELECT * FROM purchase_orders;
+ order_id |          order_date
+----------+-------------------------------
+        1 | 2025-07-26 19:16:34.732914+00
+        2 | 2025-07-26 19:16:37.962656+00
+(2 rows)
+
+mydb=> exit
+[ec2-user@ip-10-0-1-51 certs]$

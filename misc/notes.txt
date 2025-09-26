@@ -1,0 +1,16 @@
+# ------------- VPC -------------- #
+
+
+# -------------- RDS: PostgreSQL ------------- #
+PostgreSQL RDS instance is created in a private subnet as it is not supposed be accessed by anyone except the EC2 instance.
+RDS instance should NOT have access to internet as it poses a security risk. By creating it in private subnet, we introduce a layer of security, preventing any access outside the configured ones.
+
+# --------------- RDS Subnet Group ------------- #
+Subnet group is required for RDS instance as it enables the replication of data and ensures availability during a failover event. In such cases, the data from the 1st subnet provided in the attribute is accessed via the 2nd subnet, as AWS manages the replication. This supports important cloud services characteristic → Data Redundancy.
+
+
+# --------------- Subnets ---------------- #
+Private and public subnet is created 2 times, in each Availability Zone. This supports the purpose of cloud resources by replicating the network in case of outage in primary AZ. With this in place, the resources from the primary AZ can easily be replicated in the secondary (recovery) subnet.
+For anything inside private subnet, including RDS instance, to have access to internet, a NAT Gateway resource needs to be created, and a Route Table needs to be associated with the subnet.
+
+# --------------- 
